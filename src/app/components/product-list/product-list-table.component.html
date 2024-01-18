@@ -8,13 +8,13 @@
     </tr>
   </thead>
   <tbody class="">
-    <tr *ngFor="let tempProduct of products">
+    <tr *ngFor="let product of products">
       <td class="align-middle">
-        <img src="{{ tempProduct.imageUrl }}" height="50" />
+        <img src="{{ product.imageUrl }}" height="50" />
       </td>
-      <td class="align-middle">{{ tempProduct.name }}</td>
-      <td class="align-middle">{{ tempProduct.unitPrice | currency }}</td>
-      <td class="align-middle">{{ tempProduct.unitsInStock }}</td>
+      <td class="align-middle">{{ product.name }}</td>
+      <td class="align-middle">{{ product.unitPrice | currency }}</td>
+      <td class="align-middle">{{ product.unitsInStock }}</td>
     </tr>
   </tbody>
 </table>
