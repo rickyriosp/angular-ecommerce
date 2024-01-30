@@ -29,6 +29,18 @@ export class ProductService {
     return this.getProducts(searchUrl);
   }
 
+  // Spring Data REST supports pagination out of the box. Just send the parameters for page and size
+  getProductListPaginate(
+    page: number,
+    pageSize: number,
+    categoryId: number
+  ): Observable<GetResponseProducts> {
+    // build URL based on the product id, page number and size
+    const searchUrl = `${this.baseUrl}/search/findByCategoryId?id=${categoryId}&page=${page}&size=${pageSize}`;
+
+    return this.httpClient.get<GetResponseProducts>(searchUrl);
+  }
+
   getProductCategories(): Observable<ProductCategory[]> {
     return this.httpClient
       .get<GetResponseCategory>(this.categoryUrl)
@@ -42,16 +54,34 @@ export class ProductService {
     return this.getProducts(searchUrl);
   }
 
+  // Spring Data REST supports pagination out of the box. Just send the parameters for page and size
+  searchProductsPaginate(
+    page: number,
+    pageSize: number,
+    keyword: string
+  ): Observable<GetResponseProducts> {
+    // build URL based on the keyword
+    const searchUrl = `${this.baseUrl}/search/findByNameContaining?name=${keyword}&page=${page}&size=${pageSize}`;
+
+    return this.httpClient.get<GetResponseProducts>(searchUrl);
+  }
+
   private getProducts(searchUrl: string): Observable<Product[]> {
     return this.httpClient
-      .get<GetResponseProduct>(searchUrl)
+      .get<GetResponseProducts>(searchUrl)
       .pipe(map((response) => response._embedded.products));
   }
 }
 
-interface GetResponseProduct {
+interface GetResponseProducts {
   _embedded: {
     products: Product[];
+  };
+  page: {
+    size: number;
+    totalElements: number;
+    totalPages: number;
+    number: number;
   };
 }
 

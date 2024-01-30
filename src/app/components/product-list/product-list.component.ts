@@ -12,7 +12,13 @@ import { ProductService } from '../../services/product.service';
 export class ProductListComponent implements OnInit {
   products: Product[] = [];
   currentCategoryId: number = 1;
+  previousCategoryId: number = 1;
   searchMode: boolean = false;
+
+  // new properties for pagination
+  pageNumber: number = 1;
+  pageSize: number = 5;
+  totalElements: number = 0;
 
   constructor(
     private productService: ProductService,
@@ -38,10 +44,16 @@ export class ProductListComponent implements OnInit {
   handleSearchProdcuts() {
     const keyword: string = this.route.snapshot.paramMap.get('keyword')!;
 
+    console.log(`keyword=${keyword}, pageNumber=${this.pageNumber}`);
+
     // now search for the products using keyword
-    this.productService.searchProducts(keyword).subscribe((data) => {
-      this.products = data;
-    });
+    this.productService
+      .searchProductsPaginate(
+        this.pageNumber - 1, // Angular is 1 based, Spring Data Rest is 0 based
+        this.pageSize,
+        keyword
+      )
+      .subscribe(this.processResult());
   }
 
   handleListProducts() {
@@ -57,11 +69,50 @@ export class ProductListComponent implements OnInit {
       this.currentCategoryId = 1;
     }
 
+    // check if we have a different category than previous
+    // Note: Angular will reuse a component if it is currently being viewed
+
+    // if we have a different category id than previous
+    // then set pageNumber back to 1
+    if (this.previousCategoryId != this.currentCategoryId) {
+      this.pageNumber = 1;
+    }
+
+    this.previousCategoryId = this.currentCategoryId;
+
+    console.log(
+      `currentCategoryId=${this.currentCategoryId}, pageNumber=${this.pageNumber}`
+    );
+
     // now get the products for the given category id
     this.productService
-      .getProductList(this.currentCategoryId)
-      .subscribe((data) => {
-        this.products = data;
-      });
+      .getProductListPaginate(
+        this.pageNumber - 1, // Angular is 1 based, Spring Data Rest is 0 based
+        this.pageSize,
+        this.currentCategoryId
+      )
+      .subscribe(this.processResult());
+    // above is the same as :
+    // .subscribe((data) => {
+    //   this.products = data._embedded.products;
+    //   this.pageNumber = data.page.number + 1; // Angular is 1 based, Spring Data Rest is 0 based
+    //   this.pageSize = data.page.size;
+    //   this.totalElements = data.page.totalElements;
+    // })
+  }
+
+  updatePageSize(newPageSize: string) {
+    this.pageSize = +newPageSize;
+    this.pageNumber = 1;
+    this.listProducts();
+  }
+
+  processResult() {
+    return (data: any) => {
+      this.products = data._embedded.products;
+      this.pageNumber = data.page.number + 1; // Angular is 1 based, Spring Data Rest is 0 based
+      this.pageSize = data.page.size;
+      this.totalElements = data.page.totalElements;
+    };
   }
 }
