@@ -5,20 +5,20 @@
         <!-- loop over the collection of products -->
         <div *ngFor="let product of products" class="col-md-3">
           <div class="product-box">
-            <a routerLink="/products/{{ product.id }}">
+            <a routerLink="/products/{{ product.id }}/{{ currentCategoryId }}">
               <img
                 src="{{ product.imageUrl }}"
                 alt="product-image"
                 class="image-responsive"
               />
-            </a>
-            <a routerLink="/products/{{ product.id }}">
               <h1>{{ product.name }}</h1>
             </a>
             <div class="price">
               {{ product.unitPrice | currency : "USD" }}
             </div>
-            <a href="#" class="primary-btn">Add to cart</a>
+            <button class="btn btn-primary btn-sm" (click)="addToCart(product)">
+              Add to cart
+            </button>
           </div>
         </div>
 
