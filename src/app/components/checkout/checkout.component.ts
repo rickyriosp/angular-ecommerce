@@ -9,6 +9,7 @@ import { start } from '@popperjs/core';
 
 import { Country } from '../../common/country';
 import { State } from '../../common/state';
+import { CartService } from '../../services/cart.service';
 import { ShopFormService } from '../../services/shop-form.service';
 import { ShopValidators } from '../../validators/shop-validators';
 
@@ -32,7 +33,8 @@ export class CheckoutComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private shopFormService: ShopFormService
+    private shopFormService: ShopFormService,
+    private cartService: CartService
   ) {}
 
   ngOnInit(): void {
@@ -128,6 +130,9 @@ export class CheckoutComponent implements OnInit {
       console.log('Retrieved countries: ' + JSON.stringify(data));
       this.countries = data;
     });
+
+    // update totalPrice and totalQuantity
+    this.reviewCartDetails();
   }
 
   onSubmit() {
@@ -149,6 +154,14 @@ export class CheckoutComponent implements OnInit {
     console.log(
       'The shipping address state is: ' +
         this.checkoutFormGroup.get('shipping')?.value.state.name
+    );
+  }
+
+  reviewCartDetails() {
+    // subscribe to cartService totalPrice and totalQuantity
+    this.cartService.totalPrice.subscribe((data) => (this.totalPrice = data));
+    this.cartService.totalQuantity.subscribe(
+      (data) => (this.totalQuantity = data)
     );
   }
 

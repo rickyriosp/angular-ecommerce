@@ -1,4 +1,4 @@
-import { Subject } from 'rxjs';
+import { BehaviorSubject, ReplaySubject, Subject } from 'rxjs';
 
 import { Injectable } from '@angular/core';
 
@@ -10,8 +10,11 @@ import { CartItem } from '../common/cart-item';
 export class CartService {
   cartItems: CartItem[] = [];
 
-  totalPrice: Subject<number> = new Subject<number>();
-  totalQuantity: Subject<number> = new Subject<number>();
+  // Subject does not keep a buffer of events
+  // ReplaySubject keeps a buffer of all previous events
+  // BehaviorSubject keeps a buffer of the last event only
+  totalPrice: Subject<number> = new BehaviorSubject<number>(0);
+  totalQuantity: Subject<number> = new BehaviorSubject<number>(0);
 
   constructor() {}
 
