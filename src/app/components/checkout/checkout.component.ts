@@ -5,11 +5,17 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { Router } from '@angular/router';
 import { start } from '@popperjs/core';
 
 import { Country } from '../../common/country';
+import { Customer } from '../../common/customer';
+import { Order } from '../../common/order';
+import { OrderItem } from '../../common/order-item';
+import { Purchase } from '../../common/purchase';
 import { State } from '../../common/state';
 import { CartService } from '../../services/cart.service';
+import { CheckoutService } from '../../services/checkout.service';
 import { ShopFormService } from '../../services/shop-form.service';
 import { ShopValidators } from '../../validators/shop-validators';
 
@@ -34,7 +40,9 @@ export class CheckoutComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private shopFormService: ShopFormService,
-    private cartService: CartService
+    private cartService: CartService,
+    private checkoutService: CheckoutService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -52,7 +60,9 @@ export class CheckoutComponent implements OnInit {
         ]),
         email: new FormControl('', [
           Validators.required,
-          Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2-4}$'),
+          Validators.pattern(
+            '^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$'
+          ),
         ]),
       }),
       shipping: this.formBuilder.group({
@@ -124,6 +134,12 @@ export class CheckoutComponent implements OnInit {
       console.log('Retrieved years: ' + JSON.stringify(data));
       this.creditCardYears = data;
     });
+    this.checkoutFormGroup
+      .get('creditCard.expirationMonth')
+      ?.setValue(this.creditCardMonths[0]);
+    this.checkoutFormGroup
+      .get('creditCard.expirationYear')
+      ?.setValue(this.creditCardYears[0]);
 
     // populate countries
     this.shopFormService.getCountries().subscribe((data) => {
@@ -140,6 +156,7 @@ export class CheckoutComponent implements OnInit {
 
     if (this.checkoutFormGroup.invalid) {
       this.checkoutFormGroup.markAllAsTouched();
+      // return;
     }
 
     console.log(this.checkoutFormGroup.get('customer')!.value);
@@ -155,6 +172,62 @@ export class CheckoutComponent implements OnInit {
       'The shipping address state is: ' +
         this.checkoutFormGroup.get('shipping')?.value.state.name
     );
+
+    // set up order
+    const order = new Order(this.totalQuantity, this.totalPrice);
+
+    // get cart items
+    const cartItems = this.cartService.cartItems;
+
+    // create orderItems from cartItems
+    const orderItems: OrderItem[] = cartItems.map((el) => new OrderItem(el));
+
+    // set up customer
+    const customer: Customer = this.checkoutFormGroup.get('customer')!.value;
+    // set up shipping address
+    let shippingAddress = this.checkoutFormGroup.get('shipping')!.value;
+    shippingAddress.state = shippingAddress.state.code;
+    shippingAddress.country = shippingAddress.country.code;
+    // set up billing address
+    let billingAddress = this.checkoutFormGroup.get('billing')!.value;
+    billingAddress.state = billingAddress.state.code;
+    billingAddress.country = billingAddress.country.code;
+
+    // setup purchase
+    const purchase = new Purchase(
+      customer,
+      shippingAddress,
+      billingAddress,
+      order,
+      orderItems
+    );
+
+    // call REST API via te CheckoutService
+    this.checkoutService.placeOrder(purchase).subscribe({
+      next: (response) => {
+        alert(
+          `Your order has been received.\nOrder tracking number: ${response.orderTrackingNumber}`
+        );
+        // reset cart
+        this.resetCart();
+      },
+      error: (err) => {
+        alert(`There was an error: ${err.message}`);
+      },
+    });
+  }
+
+  resetCart() {
+    // reset cart data
+    this.cartService.cartItems = [];
+    this.cartService.totalPrice.next(0);
+    this.cartService.totalQuantity.next(0);
+
+    // reset the form
+    this.checkoutFormGroup.reset();
+
+    // navigate back to the products page
+    this.router.navigateByUrl('/products');
   }
 
   reviewCartDetails() {
