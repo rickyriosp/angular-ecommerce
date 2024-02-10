@@ -1,4 +1,4 @@
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
@@ -19,6 +19,7 @@ import { ProductDetailsComponent } from './components/product-details/product-de
 import { ProductListComponent } from './components/product-list/product-list.component';
 import { SearchComponent } from './components/search/search.component';
 import myAppConfig from './config/my-app-config';
+import { AuthInterceptorService } from './services/auth-interceptor.service';
 import { ProductService } from './services/product.service';
 
 const oktaConfig = myAppConfig.oidc;
@@ -47,7 +48,15 @@ const oktaAuth = new OktaAuth(oktaConfig);
     // OktaAuthModule,
     OktaAuthModule.forRoot({ oktaAuth }),
   ],
-  providers: [ProductService, { provide: OKTA_CONFIG, useValue: { oktaAuth } }],
+  providers: [
+    ProductService,
+    { provide: OKTA_CONFIG, useValue: { oktaAuth } },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptorService,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

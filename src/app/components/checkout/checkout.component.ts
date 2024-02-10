@@ -129,11 +129,11 @@ export class CheckoutComponent implements OnInit {
     this.shopFormService
       .getCreditCardMonths(new Date().getMonth() + 1)
       .subscribe((data) => {
-        console.log('Retrieved months: ' + JSON.stringify(data));
+        // console.log('Retrieved months: ' + JSON.stringify(data));
         this.creditCardMonths = data;
       });
     this.shopFormService.getCreditCardYears().subscribe((data) => {
-      console.log('Retrieved years: ' + JSON.stringify(data));
+      // console.log('Retrieved years: ' + JSON.stringify(data));
       this.creditCardYears = data;
     });
     this.checkoutFormGroup
@@ -145,7 +145,7 @@ export class CheckoutComponent implements OnInit {
 
     // populate countries
     this.shopFormService.getCountries().subscribe((data) => {
-      console.log('Retrieved countries: ' + JSON.stringify(data));
+      // console.log('Retrieved countries: ' + JSON.stringify(data));
       this.countries = data;
     });
 
@@ -164,7 +164,7 @@ export class CheckoutComponent implements OnInit {
 
     if (this.checkoutFormGroup.invalid) {
       this.checkoutFormGroup.markAllAsTouched();
-      // return;
+      return;
     }
 
     console.log(this.checkoutFormGroup.get('customer')!.value);
@@ -227,9 +227,7 @@ export class CheckoutComponent implements OnInit {
 
   resetCart() {
     // reset cart data
-    this.cartService.cartItems = [];
-    this.cartService.totalPrice.next(0);
-    this.cartService.totalQuantity.next(0);
+    this.cartService.clearCartItems();
 
     // reset the form
     this.checkoutFormGroup.reset();
@@ -283,8 +281,8 @@ export class CheckoutComponent implements OnInit {
     const countryName =
       this.checkoutFormGroup.get(formGroupName)!.value.country.name;
 
-    console.log(`${formGroupName} country code: ${countryCode}`);
-    console.log(`${formGroupName} country name: ${countryName}`);
+    // console.log(`${formGroupName} country code: ${countryCode}`);
+    // console.log(`${formGroupName} country name: ${countryName}`);
 
     this.shopFormService.getStates(countryCode).subscribe((data) => {
       // console.log('Retrieved states: ' + JSON.stringify(data));

@@ -83,9 +83,9 @@ export class ProductListComponent implements OnInit {
 
     this.previousCategoryId = this.currentCategoryId;
 
-    console.log(
-      `currentCategoryId=${this.currentCategoryId}, pageNumber=${this.pageNumber}`
-    );
+    // console.log(
+    //   `currentCategoryId=${this.currentCategoryId}, pageNumber=${this.pageNumber}`
+    // );
 
     // now get the products for the given category id
     this.productService
@@ -120,7 +120,7 @@ export class ProductListComponent implements OnInit {
   }
 
   addToCart(product: Product) {
-    console.log(`Adding to cart: ${product.name}, ${product.unitPrice}`);
+    // console.log(`Adding to cart: ${product.name}, ${product.unitPrice}`);
 
     const cartItem = new CartItem(product);
 

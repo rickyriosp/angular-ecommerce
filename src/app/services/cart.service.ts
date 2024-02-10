@@ -90,7 +90,7 @@ export class CartService {
     this.totalQuantity.next(totalQuantityValue);
 
     // log cart data for debugging purposes
-    this.logCartData(totalPriceValue, totalQuantityValue);
+    // this.logCartData(totalPriceValue, totalQuantityValue);
 
     // persist cart data
     this.persistCartItems();
@@ -100,8 +100,17 @@ export class CartService {
     this.storage.setItem('cartItems', JSON.stringify(this.cartItems));
   }
 
+  clearCartItems() {
+    this.storage.removeItem('cartItems');
+
+    this.cartItems = [];
+    this.totalPrice.next(0);
+    this.totalQuantity.next(0);
+  }
+
   logCartData(totalPriceValue: number, totalQuantityValue: number) {
     console.log('Contents of the cart');
+
     for (let item of this.cartItems) {
       const subTotalPrice = item.quantity * item.unitPrice;
       console.log(
