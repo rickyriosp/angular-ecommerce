@@ -7,6 +7,7 @@ import { CartDetailsComponent } from './components/cart-details/cart-details.com
 import { CheckoutComponent } from './components/checkout/checkout.component';
 import { LoginComponent } from './components/login/login.component';
 import { MembersPageComponent } from './components/members-page/members-page.component';
+import { OrderHistoryComponent } from './components/order-history/order-history.component';
 import { ProductDetailsComponent } from './components/product-details/product-details.component';
 import { ProductListComponent } from './components/product-list/product-list.component';
 
@@ -24,6 +25,12 @@ const routes: Routes = [
   {
     path: 'members',
     component: MembersPageComponent,
+    canActivate: [OktaAuthGuard],
+    data: { onAuthRequired: sendToLoginPage },
+  },
+  {
+    path: 'order-history',
+    component: OrderHistoryComponent,
     canActivate: [OktaAuthGuard],
     data: { onAuthRequired: sendToLoginPage },
   },

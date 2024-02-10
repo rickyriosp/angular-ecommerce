@@ -37,6 +37,8 @@ export class CheckoutComponent implements OnInit {
   shippingStates: State[] = [];
   billingStates: State[] = [];
 
+  storage: Storage = sessionStorage;
+
   constructor(
     private formBuilder: FormBuilder,
     private shopFormService: ShopFormService,
@@ -149,6 +151,12 @@ export class CheckoutComponent implements OnInit {
 
     // update totalPrice and totalQuantity
     this.reviewCartDetails();
+
+    // populate email if user is logged in
+    const email = JSON.parse(this.storage.getItem('email')!);
+    if (email != null) {
+      this.checkoutFormGroup.get('customer.email')?.setValue(email);
+    }
   }
 
   onSubmit() {
