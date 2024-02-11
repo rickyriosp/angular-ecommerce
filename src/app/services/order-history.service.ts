@@ -3,6 +3,7 @@ import { map, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
+import { environment } from '../../environments/environment';
 import { Order } from '../common/order';
 import { OrderHistory } from '../common/order-history';
 
@@ -10,7 +11,7 @@ import { OrderHistory } from '../common/order-history';
   providedIn: 'root',
 })
 export class OrderHistoryService {
-  private orderUrl = 'http://localhost:8080/api/orders';
+  private orderUrl = environment.shopApiUrl + '/orders';
 
   constructor(private httpClient: HttpClient) {}
 
