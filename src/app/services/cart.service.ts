@@ -37,9 +37,7 @@ export class CartService {
 
     if (this.cartItems.length > 0) {
       // find the item in the cart based on item id
-      existingCartItem = this.cartItems.find(
-        (item) => item.id === cartItem.id
-      )!;
+      existingCartItem = this.cartItems.find((item) => item.id === cartItem.id)!;
     }
 
     // check if we found it
@@ -114,15 +112,11 @@ export class CartService {
     for (let item of this.cartItems) {
       const subTotalPrice = item.quantity * item.unitPrice;
       console.log(
-        `name: ${item.name}, quantity: ${item.quantity}, unitPrice: ${item.unitPrice}, subTotalPriec: ${subTotalPrice}`
+        `name: ${item.name}, quantity: ${item.quantity}, unitPrice: ${item.unitPrice}, subTotalPriec: ${subTotalPrice}`,
       );
     }
 
-    console.log(
-      `totalPrice: ${totalPriceValue.toFixed(
-        2
-      )}, totalQuantity: ${totalQuantityValue}`
-    );
+    console.log(`totalPrice: ${totalPriceValue.toFixed(2)}, totalQuantity: ${totalQuantityValue}`);
     console.log('-------------');
   }
 }

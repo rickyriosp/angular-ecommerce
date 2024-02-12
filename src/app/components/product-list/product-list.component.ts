@@ -25,7 +25,7 @@ export class ProductListComponent implements OnInit {
   constructor(
     private productService: ProductService,
     private cartService: CartService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
   ) {}
 
   ngOnInit(): void {
@@ -54,7 +54,7 @@ export class ProductListComponent implements OnInit {
       .searchProductsPaginate(
         this.pageNumber - 1, // Angular is 1 based, Spring Data Rest is 0 based
         this.pageSize,
-        keyword
+        keyword,
       )
       .subscribe(this.processResult());
   }
@@ -92,7 +92,7 @@ export class ProductListComponent implements OnInit {
       .getProductListPaginate(
         this.pageNumber - 1, // Angular is 1 based, Spring Data Rest is 0 based
         this.pageSize,
-        this.currentCategoryId
+        this.currentCategoryId,
       )
       .subscribe(this.processResult());
     // above is the same as :

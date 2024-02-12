@@ -9,6 +9,6 @@ export class Purchase {
     public shippingAddress: Address,
     public billingAddress: Address,
     public order: Order,
-    public orderItems: OrderItem[]
+    public orderItems: OrderItem[],
   ) {}
 }

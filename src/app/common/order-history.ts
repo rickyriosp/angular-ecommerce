@@ -4,6 +4,6 @@ export class OrderHistory {
     public orderTrackingNumber: string,
     public totalPrice: number,
     public totalQuantity: number,
-    public dateCreated: Date
+    public dateCreated: Date,
   ) {}
 }

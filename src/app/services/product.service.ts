@@ -34,7 +34,7 @@ export class ProductService {
   getProductListPaginate(
     page: number,
     pageSize: number,
-    categoryId: number
+    categoryId: number,
   ): Observable<GetResponseProducts> {
     // build URL based on the product id, page number and size
     const searchUrl = `${this.baseUrl}/search/findByCategoryId?id=${categoryId}&page=${page}&size=${pageSize}`;
@@ -59,7 +59,7 @@ export class ProductService {
   searchProductsPaginate(
     page: number,
     pageSize: number,
-    keyword: string
+    keyword: string,
   ): Observable<GetResponseProducts> {
     // build URL based on the keyword
     const searchUrl = `${this.baseUrl}/search/findByNameContaining?name=${keyword}&page=${page}&size=${pageSize}`;

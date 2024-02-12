@@ -17,7 +17,7 @@ export class LoginStatusComponent implements OnInit {
   constructor(
     private oktaAuthService: OktaAuthStateService,
     @Inject(OKTA_AUTH) private oktaAuth: OktaAuth,
-    private router: Router
+    private router: Router,
   ) {}
 
   async ngOnInit() {

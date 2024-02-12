@@ -1,11 +1,6 @@
 import { from, lastValueFrom, Observable } from 'rxjs';
 
-import {
-  HttpEvent,
-  HttpHandler,
-  HttpInterceptor,
-  HttpRequest,
-} from '@angular/common/http';
+import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { OKTA_AUTH } from '@okta/okta-angular';
 import OktaAuth from '@okta/okta-auth-js';
@@ -18,17 +13,11 @@ import { environment } from '../../environments/environment';
 export class AuthInterceptorService implements HttpInterceptor {
   constructor(@Inject(OKTA_AUTH) private oktaAuth: OktaAuth) {}
 
-  intercept(
-    req: HttpRequest<any>,
-    next: HttpHandler
-  ): Observable<HttpEvent<any>> {
+  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return from(this.handleAccess(req, next));
   }
 
-  private async handleAccess(
-    req: HttpRequest<any>,
-    next: HttpHandler
-  ): Promise<HttpEvent<any>> {
+  private async handleAccess(req: HttpRequest<any>, next: HttpHandler): Promise<HttpEvent<any>> {
     // only add an access toke for secured endpoints
     const endpoint = environment.shopApiUrl + '/orders';
     const securedEndpoints = [endpoint];

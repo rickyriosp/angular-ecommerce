@@ -6,7 +6,8 @@
     "start": "ng serve --ssl=true --ssl-key=./ssl-localhost/localhost.key --ssl-cert=./ssl-localhost/localhost.crt",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "pretty": "prettier --write \"./**/*.{js,jsx,mjs,cjs,ts,tsx,json}\""
   },
   "private": true,
   "dependencies": {
@@ -24,7 +25,9 @@
     "@okta/okta-auth-js": "7.2",
     "@okta/okta-signin-widget": "^7.15.1",
     "@popperjs/core": "^2.11.8",
+    "@stripe/stripe-js": "^2.4.0",
     "bootstrap": "^5.3.2",
+    "prettier": "^3.2.5",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.2"
