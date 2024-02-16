@@ -1,13 +1,8 @@
-<div class="menu-sidebar-content js-scrollbar1">
-  <nav class="navbar-sidebar">
-    <ul class="list-unstyled navbar-list">
-      <li *ngFor="let category of productCategories">
-        <a
-          routerLink="/category/{{ category.id }}"
-          routerLinkActive="active-link"
-          >{{ category.categoryName }}</a
-        >
-      </li>
-    </ul>
-  </nav>
-</div>
+<ng-container *ngIf="productCategories.length != 0">
+  <li><hr class="dropdown-divider" /></li>
+  <li *ngFor="let category of productCategories">
+    <a class="dropdown-item" routerLink="/category/{{ category.id }}" routerLinkActive="active-link">
+      {{ category.categoryName }}
+    </a>
+  </li>
+</ng-container>

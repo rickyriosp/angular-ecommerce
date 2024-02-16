@@ -1,9 +1,5 @@
-<div class="cart-area d-n">
-  <a routerLink="/cart-details" routerLinkActive="active-link">
-    <div class="total">
-      {{ totalPrice | currency : "USD" }}
-      <span>{{ totalQuantity }}</span>
-    </div>
-    <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-  </a>
-</div>
+<a class="btn btn-outline-dark" routerLink="/cart-details">
+  <i class="bi-cart-fill me-1"></i>
+  Cart
+  <span class="badge bg-dark text-white ms-1 rounded-pill">{{ totalQuantity }}</span>
+</a>

@@ -1,42 +1,70 @@
-<div class="page-wrapper">
-  <!-- MENU SIDEBAR-->
-  <aside class="menu-sidebar d-none d-lg-block">
-    <div class="logo">
-      <a routerLink="/products">
-        <img
-          src="assets/images/logoV2.jpg"
-          alt="simtrackusa"
-          class="img-responsive"
-        />
-      </a>
+<!-- Navigation-->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container px-4 px-lg-5">
+    <a class="navbar-brand" routerLink="/">
+      <img src="assets/images/logoV2.jpg" alt="simtrackusa" width="100" class="img-fluid" />
+      SimTrack USA
+    </a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+        <li class="nav-item">
+          <a class="nav-link" aria-current="page" routerLink="/" routerLinkActive="active">Home</a>
+        </li>
+        <li class="nav-item"><a class="nav-link" routerLink="/about" routerLinkActive="active">About</a></li>
+        <li class="nav-item"><a class="nav-link" routerLink="/contact" routerLinkActive="active">Contact</a></li>
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle"
+            id="navbarDropdown"
+            routerLink="/products"
+            routerLinkActive="active"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            Shop
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" routerLink="/products">All Products</a></li>
+            <app-product-category-menu></app-product-category-menu>
+          </ul>
+        </li>
+        <li>
+          <app-login-status></app-login-status>
+        </li>
+      </ul>
+      <form class="d-flex">
+        <app-cart-status></app-cart-status>
+      </form>
     </div>
+  </div>
+</nav>
+<!-- Header-->
+<header class="bg-dark py-5">
+  <div class="container px-4 px-lg-5 my-5">
+    <div class="text-center text-white">
+      <h1 class="display-4 fw-bolder">SimTrack USA</h1>
+      <p class="lead fw-normal text-white-50 mb-0">Sim Racing equipment made for gamers by gamers.</p>
+      <br />
+      <app-search></app-search>
+    </div>
+  </div>
+</header>
 
-    <app-product-category-menu></app-product-category-menu>
-  </aside>
-  <!-- END MENU SIDEBAR-->
-
+<div class="page-wrapper">
   <!-- PAGE CONTAINER-->
   <div class="page-container">
-    <!-- HEADER DESKTOP-->
-    <header class="header-desktop">
-      <div class="section-content section-content-p30">
-        <div class="container-fluid">
-          <div class="header-wrap">
-            <!-- SEARCH BAR -->
-            <app-search></app-search>
-
-            <!-- LOGIN STATUS -->
-            <app-login-status></app-login-status>
-
-            <!-- CART -->
-            <app-cart-status></app-cart-status>
-          </div>
-          <div class="account-wrap"></div>
-        </div>
-      </div>
-    </header>
-    <!-- END HEADER DESKTOP-->
-
     <!-- MAIN CONTENT-->
     <router-outlet></router-outlet>
 
@@ -44,11 +72,3 @@
   </div>
   <!-- END PAGE CONTAINER-->
 </div>
-
-<footer>
-  <ul>
-    <li><a href="#">About Us</a></li>
-    <li><a href="#">Contact Us</a></li>
-    <li><a href="#">Help</a></li>
-  </ul>
-</footer>
