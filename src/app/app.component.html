@@ -24,19 +24,11 @@
         <li class="nav-item"><a class="nav-link" routerLink="/about" routerLinkActive="active">About</a></li>
         <li class="nav-item"><a class="nav-link" routerLink="/contact" routerLinkActive="active">Contact</a></li>
         <li class="nav-item dropdown">
-          <a
-            class="nav-link dropdown-toggle"
-            id="navbarDropdown"
-            routerLink="/products"
-            routerLinkActive="active"
-            role="button"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-          >
-            Shop
-          </a>
+          <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Shop </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" routerLink="/products">All Products</a></li>
+            <li>
+              <a class="dropdown-item" routerLink="/products">All Products</a>
+            </li>
             <app-product-category-menu></app-product-category-menu>
           </ul>
         </li>
@@ -57,6 +49,7 @@
       <h1 class="display-4 fw-bolder">SimTrack USA</h1>
       <p class="lead fw-normal text-white-50 mb-0">Sim Racing equipment made for gamers by gamers.</p>
       <br />
+      <!-- Search -->
       <app-search></app-search>
     </div>
   </div>
@@ -72,3 +65,8 @@
   </div>
   <!-- END PAGE CONTAINER-->
 </div>
+
+<!-- Footer-->
+<footer class="py-5 bg-dark">
+  <div class="container"><p class="m-0 text-center text-white">Copyright &copy; SimTrackUSA</p></div>
+</footer>

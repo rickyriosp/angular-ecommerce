@@ -1,56 +1,76 @@
-<div class="main-content">
-  <div class="section-content section-content-p30">
-    <div class="container-fluid">
-      <div class="row">
-        <!-- loop over the collection of products -->
-        <div *ngFor="let product of products" class="col-md-3">
-          <div class="product-box">
-            <a routerLink="/products/{{ product.id }}/{{ currentCategoryId }}">
-              <img src="{{ product.imageUrl }}" alt="product-image" class="image-responsive" />
-              <h1>{{ product.name }}</h1>
-            </a>
-            <div class="price">
+<!-- Section-->
+<section class="py-5">
+  <div class="container px-4 px-lg-5 mt-5">
+    <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+      <div *ngFor="let product of products" class="col mb-5">
+        <div class="card h-100">
+          <!-- Sale badge-->
+          <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
+          <!-- Product image-->
+          <a routerLink="/products/{{ product.id }}/{{ currentCategoryId }}">
+            <img class="card-img-top" src="{{ product.imageUrl }}" alt="product-image" />
+          </a>
+          <!-- Product details-->
+          <div class="card-body p-4">
+            <div class="text-center">
+              <!-- Product name-->
+              <a routerLink="/products/{{ product.id }}/{{ currentCategoryId }}">
+                <h5 class="fw-bolder">{{ product.name }}</h5>
+              </a>
+              <!-- Product reviews-->
+              <div class="d-flex justify-content-center small text-warning mb-2">
+                <div class="bi-star-fill"></div>
+                <div class="bi-star-fill"></div>
+                <div class="bi-star-fill"></div>
+                <div class="bi-star-fill"></div>
+                <div class="bi-star-fill"></div>
+              </div>
+              <!-- Product price-->
+              <span class="text-muted text-decoration-line-through">{{ product.unitPrice | currency: "USD" }}</span>
               {{ product.unitPrice | currency: "USD" }}
             </div>
-            <button class="btn btn-primary btn-sm" (click)="addToCart(product)">Add to cart</button>
+          </div>
+          <!-- Product actions-->
+          <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+            <div class="text-center"><a class="btn btn-outline-dark mt-auto" (click)="addToCart(product)">Add to cart</a></div>
           </div>
         </div>
-
-        <!-- if products empty then display a message -->
-        <!-- ? ==> safe navigation operator. guards against null and undefined values in property paths -->
-        <div *ngIf="products?.length == 0" class="alert alert-warning col-md-12" role="alert">No products found.</div>
       </div>
 
-      <!-- begin footer -->
-      <div class="footer-pagination">
-        <div class="row">
-          <div class="col-md-12">
-            <div class="row">
-              <div class="col" style="padding-left: 35%">
-                <ngb-pagination
-                  [(page)]="pageNumber"
-                  [pageSize]="pageSize"
-                  [collectionSize]="totalElements"
-                  [maxSize]="5"
-                  [boundaryLinks]="true"
-                  (pageChange)="listProducts()"
-                >
-                </ngb-pagination>
-                <div class="col d-inline-flex">
-                  <span class="ms-2 flex-grow-1">Page Size: </span>
-                  <select #myPageSelect class="form-select" aria-label="page size select" (change)="updatePageSize(myPageSelect.value)">
-                    <option>2</option>
-                    <option selected="true">5</option>
-                    <option>10</option>
-                    <option>20</option>
-                    <option>50</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-          </div>
+      <!-- if products empty then display a message -->
+      <!-- ? ==> safe navigation operator. guards against null and undefined values in property paths -->
+      <div *ngIf="products?.length == 0" class="alert alert-warning col-md-12" role="alert">No products found.</div>
+    </div>
+
+    <!-- Pagination -->
+    <div class="footer-pagination">
+      <div class="row row-cols-auto">
+        <div class="col-3"></div>
+        <div class="col d-flex">
+          <ngb-pagination
+            [(page)]="pageNumber"
+            [pageSize]="pageSize"
+            [collectionSize]="totalElements"
+            [maxSize]="5"
+            [boundaryLinks]="true"
+            (pageChange)="listProducts()"
+          >
+          </ngb-pagination>
         </div>
+        <div class="col mt-2">
+          <span>Page Size:</span>
+        </div>
+        <div class="col">
+          <select #myPageSelect class="form-select" aria-label="page size select" (change)="updatePageSize(myPageSelect.value)">
+            <option>2</option>
+            <option selected="true">5</option>
+            <option>10</option>
+            <option>20</option>
+            <option>50</option>
+          </select>
+        </div>
+        <div class="col-3"></div>
       </div>
     </div>
   </div>
-</div>
+</section>

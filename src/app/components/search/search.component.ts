@@ -12,7 +12,7 @@ export class SearchComponent implements OnInit {
   ngOnInit(): void {}
 
   doSearch(value: string) {
-    console.log(`value = ${value}`);
+    console.log(`search value = ${value}`);
     this.router.navigateByUrl(`/search/${value}`);
     //return false; // equivalent to event.preventDefault();
   }

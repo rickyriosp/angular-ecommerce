@@ -1,12 +1,12 @@
-<form class="form-header">
+<div class="input-group mx-auto w-50">
   <input
     #myInput
     type="text"
-    class="au-input au-input-xl"
+    class="form-control"
     placeholder="Search for products ..."
+    aria-label="search term"
+    aria-describedby="button-search"
     (keyup.enter)="doSearch(myInput.value)"
   />
-  <button (click)="doSearch(myInput.value)" class="au-btn-submit">
-    Search
-  </button>
-</form>
+  <button (click)="doSearch(myInput.value)" class="btn btn-primary" id="button-search">Search</button>
+</div>
