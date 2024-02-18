@@ -23,16 +23,16 @@
               <td class="align-middle">
                 <div class="d-flex align-items-center">
                   <label class="me-2">Quantity:</label>
-                  <a class="btn btn-outline-secondary btn-sm" (click)="incrementQuantity(item)">
-                    <i class="fas fa-plus"></i>
+                  <a class="btn btn-outline-secondary" (click)="incrementQuantity(item)">
+                    <i class="bi bi-plus-lg fw-bold"></i>
                   </a>
                   <div class="p-3">
                     {{ item.quantity }}
                   </div>
-                  <button class="btn btn-outline-secondary btn-sm" (click)="decrementQuantity(item)">
-                    <i class="fas fa-minus"></i>
+                  <button class="btn btn-outline-secondary" (click)="decrementQuantity(item)">
+                    <i class="bi bi-dash-lg"></i>
                   </button>
-                  <button class="btn btn-close btn-sm ms-2" (click)="remove(item)"></button>
+                  <button class="btn btn-close btn-sm ms-3" (click)="remove(item)"></button>
                 </div>
 
                 <div></div>
