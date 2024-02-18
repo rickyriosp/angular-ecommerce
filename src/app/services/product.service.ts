@@ -31,11 +31,7 @@ export class ProductService {
   }
 
   // Spring Data REST supports pagination out of the box. Just send the parameters for page and size
-  getProductListPaginate(
-    page: number,
-    pageSize: number,
-    categoryId: number,
-  ): Observable<GetResponseProducts> {
+  getProductListPaginate(page: number, pageSize: number, categoryId: number): Observable<GetResponseProducts> {
     // build URL based on the product id, page number and size
     const searchUrl = `${this.baseUrl}/search/findByCategoryId?id=${categoryId}&page=${page}&size=${pageSize}`;
 
@@ -43,9 +39,7 @@ export class ProductService {
   }
 
   getProductCategories(): Observable<ProductCategory[]> {
-    return this.httpClient
-      .get<GetResponseCategory>(this.categoryUrl)
-      .pipe(map((response) => response._embedded.productCategory));
+    return this.httpClient.get<GetResponseCategory>(this.categoryUrl).pipe(map((response) => response._embedded.productCategory));
   }
 
   searchProducts(keyword: string): Observable<Product[]> {
@@ -56,11 +50,7 @@ export class ProductService {
   }
 
   // Spring Data REST supports pagination out of the box. Just send the parameters for page and size
-  searchProductsPaginate(
-    page: number,
-    pageSize: number,
-    keyword: string,
-  ): Observable<GetResponseProducts> {
+  searchProductsPaginate(page: number, pageSize: number, keyword: string): Observable<GetResponseProducts> {
     // build URL based on the keyword
     const searchUrl = `${this.baseUrl}/search/findByNameContaining?name=${keyword}&page=${page}&size=${pageSize}`;
 
@@ -68,9 +58,7 @@ export class ProductService {
   }
 
   private getProducts(searchUrl: string): Observable<Product[]> {
-    return this.httpClient
-      .get<GetResponseProducts>(searchUrl)
-      .pipe(map((response) => response._embedded.products));
+    return this.httpClient.get<GetResponseProducts>(searchUrl).pipe(map((response) => response._embedded.products));
   }
 }
 

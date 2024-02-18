@@ -21,9 +21,7 @@ export class OrderHistoryComponent implements OnInit {
   async handleOrderHistory() {
     const email = JSON.parse(this.storage.getItem('email')!);
 
-    await this.orderHistoryService
-      .getOrderHistory(email!)
-      .subscribe(async (data) => await (this.orderHistoryList = data));
+    await this.orderHistoryService.getOrderHistory(email!).subscribe(async (data) => await (this.orderHistoryList = data));
 
     // sorting in backend directly now
     // setTimeout(() => {

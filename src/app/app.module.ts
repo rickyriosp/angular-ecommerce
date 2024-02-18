@@ -21,6 +21,8 @@ import { SearchComponent } from './components/search/search.component';
 import myAppConfig from './config/my-app-config';
 import { AuthInterceptorService } from './services/auth-interceptor.service';
 import { ProductService } from './services/product.service';
+import { ContactComponent } from './components/contact/contact.component';
+import { AboutComponent } from './components/about/about.component';
 
 const oktaConfig = myAppConfig.oidc;
 const oktaAuth = new OktaAuth(oktaConfig);
@@ -38,6 +40,8 @@ const oktaAuth = new OktaAuth(oktaConfig);
     LoginComponent,
     LoginStatusComponent,
     OrderHistoryComponent,
+    ContactComponent,
+    AboutComponent,
   ],
   imports: [
     BrowserModule,

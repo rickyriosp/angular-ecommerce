@@ -1,0 +1,72 @@
+<!-- Contact section-->
+<section class="py-5 bg-light">
+  <div *ngIf="contactFormGroup != undefined" class="section-content section-content-p30">
+    <div class="text-center mb-5">
+      <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="bi bi-envelope"></i></div>
+      <h2 class="fw-bolder">Get in touch</h2>
+      <p class="lead mb-0">We'd love to hear from you</p>
+    </div>
+    <div class="row gx-5 justify-content-center">
+      <div class="col-10 col-sm-6">
+        <form [formGroup]="contactFormGroup" id="contactForm" (ngSubmit)="onSubmit()">
+          <!-- Name input-->
+          <div class="form-floating mb-3">
+            <input formControlName="fullName" class="form-control" id="name" type="text" placeholder="Enter your name..." />
+            <label for="name">Full name</label>
+            <div *ngIf="fullName?.invalid && (fullName?.dirty || fullName?.touched)" class="is-invalid">
+              <div class="invalid-feedback" style="display: block">A name is required.</div>
+            </div>
+          </div>
+          <!-- Email address input-->
+          <div class="form-floating mb-3">
+            <input formControlName="email" class="form-control" id="email" type="email" placeholder="name@example.com" />
+            <label for="email">Email address</label>
+            <div *ngIf="email?.invalid && (email?.dirty || email?.touched)">
+              <div *ngIf="email?.errors?.['required']" class="invalid-feedback" style="display: block">An email is required.</div>
+              <div *ngIf="email?.errors?.['pattern']" class="invalid-feedback" style="display: block">Email is not valid.</div>
+            </div>
+          </div>
+          <!-- Phone number input-->
+          <div class="form-floating mb-3">
+            <input formControlName="phone" class="form-control" id="phone" type="tel" placeholder="(123) 456-7890" />
+            <label for="phone">Phone number</label>
+            <div *ngIf="phone?.invalid && (phone?.dirty || phone?.touched)">
+              <div class="invalid-feedback" style="display: block">Phone number is not valid.</div>
+            </div>
+          </div>
+          <!-- Message input-->
+          <div class="form-floating mb-3">
+            <textarea
+              formControlName="message"
+              class="form-control"
+              id="message"
+              type="text"
+              placeholder="Enter your message here..."
+              style="height: 10rem"
+            ></textarea>
+            <label for="message">Message</label>
+            <div *ngIf="message?.invalid && (message?.dirty || message?.touched)">
+              <div class="invalid-feedback" style="display: block">A message is required.</div>
+            </div>
+          </div>
+          <!-- Submit success message-->
+          <!---->
+          <!-- This is what your users will see when the form-->
+          <!-- has successfully submitted-->
+          <div class="d-none" id="submitSuccessMessage">
+            <div class="text-center mb-3">
+              <div class="fw-bolder">Form submission successful!</div>
+            </div>
+          </div>
+          <!-- Submit error message-->
+          <!---->
+          <!-- This is what your users will see when there is-->
+          <!-- an error submitting the form-->
+          <div class="d-none" id="submitErrorMessage"><div class="text-center text-danger mb-3">Error sending message!</div></div>
+          <!-- Submit Button-->
+          <div class="d-grid"><button class="btn btn-primary btn-lg" id="submitButton" type="submit">Submit</button></div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>

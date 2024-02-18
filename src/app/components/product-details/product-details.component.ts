@@ -42,9 +42,12 @@ export class ProductDetailsComponent implements OnInit {
   }
 
   addToCart(product: Product) {
-    console.log(`Adding to cart: ${product.name}, ${product.unitPrice}`);
+    const quantity = +(document.getElementById('inputQuantity') as HTMLInputElement).value;
+
+    console.log(`Adding to cart: ${product.name}, ${product.unitPrice}, quantity: ${quantity}`);
 
     const cartItem = new CartItem(product);
+    cartItem.quantity = quantity;
 
     this.cartService.addToCart(cartItem);
   }

@@ -17,17 +17,13 @@ export class ShopFormService {
   constructor(private httpClient: HttpClient) {}
 
   getCountries(): Observable<Country[]> {
-    return this.httpClient
-      .get<GetResponseCountries>(this.countriesUrl)
-      .pipe(map((response) => response._embedded.countries));
+    return this.httpClient.get<GetResponseCountries>(this.countriesUrl).pipe(map((response) => response._embedded.countries));
   }
 
   getStates(countryCode: string): Observable<State[]> {
     const searchStatesUrl = `${this.statesUrl}/search/findByCountryCode?code=${countryCode}`;
 
-    return this.httpClient
-      .get<GetResponseStates>(searchStatesUrl)
-      .pipe(map((response) => response._embedded.states));
+    return this.httpClient.get<GetResponseStates>(searchStatesUrl).pipe(map((response) => response._embedded.states));
   }
 
   getCreditCardMonths(startMonth: number): Observable<number[]> {

@@ -21,9 +21,7 @@ export class CheckoutService {
   }
 
   createPaymentIntent(paymentInfo: PaymentInfo): Observable<string> {
-    return this.httpClient
-      .post<GetPaymentIntent>(this.paymentIntentUrl, paymentInfo)
-      .pipe(map((data) => data.client_secret));
+    return this.httpClient.post<GetPaymentIntent>(this.paymentIntentUrl, paymentInfo).pipe(map((data) => data.client_secret));
   }
 }
 

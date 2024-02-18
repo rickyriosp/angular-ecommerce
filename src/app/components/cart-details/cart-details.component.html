@@ -1,79 +1,58 @@
-<div class="main-content">
-  <div class="section-content section-content-p30">
-    <div class="container-fluid">
-      <div *ngIf="cartItems.length > 0">
-        <table class="table table-bordered">
-          <tr>
-            <th width="20%">Product Image</th>
-            <th width="50%">Product Detail</th>
-            <th width="30%"></th>
-          </tr>
-          <tr *ngFor="let item of cartItems">
-            <td>
-              <img
-                src="{{ item.imageUrl }}"
-                class="img-responsive"
-                width="150px"
-                alt="product-image"
-              />
-            </td>
-            <td>
-              <p>{{ item.name }}</p>
-              <p>{{ item.unitPrice | currency : "USD" }}</p>
-            </td>
-            <td>
-              <div class="items">
-                <label>Quantity:</label>
-                <div class="row no-gutters">
-                  <div class="col">
-                    <button
-                      class="btn btn-primary btn-sm"
-                      (click)="incrementQuantity(item)"
-                    >
-                      <i class="fas fa-plus"></i>
-                    </button>
-                  </div>
-                  <div class="col">
+<section class="py-5">
+  <div class="container px-4 px-lg-5 my-5">
+    <div class="row gx-4 gx-lg-5 align-items-center">
+      <div *ngIf="cartItems.length > 0" class="table-responsive">
+        <table class="table">
+          <thead>
+            <tr>
+              <th class="ps-5" width="20%">Image</th>
+              <th width="40%">Details</th>
+              <th width="20%">Price</th>
+              <th width="20%"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of cartItems">
+              <td><img src="{{ item.imageUrl }}" class="img-responsive" width="150px" alt="product-image" /></td>
+              <td class="align-middle">
+                <p>{{ item.name }}</p>
+              </td>
+              <td class="align-middle">
+                <p>{{ item.unitPrice | currency: "USD" }}</p>
+              </td>
+              <td class="align-middle">
+                <div class="d-flex align-items-center">
+                  <label class="me-2">Quantity:</label>
+                  <a class="btn btn-outline-secondary btn-sm" (click)="incrementQuantity(item)">
+                    <i class="fas fa-plus"></i>
+                  </a>
+                  <div class="p-3">
                     {{ item.quantity }}
                   </div>
-                  <div class="col">
-                    <button
-                      class="btn btn-primary btn-sm"
-                      (click)="decrementQuantity(item)"
-                    >
-                      <i class="fas fa-minus"></i>
-                    </button>
-                  </div>
-                  <div class="col-8"></div>
+                  <button class="btn btn-outline-secondary btn-sm" (click)="decrementQuantity(item)">
+                    <i class="fas fa-minus"></i>
+                  </button>
+                  <button class="btn btn-close btn-sm ms-2" (click)="remove(item)"></button>
                 </div>
-              </div>
 
-              <div>
-                <button
-                  class="btn btn-primary btn-sm mt-2"
-                  (click)="remove(item)"
-                >
-                  Remove
-                </button>
-              </div>
+                <div></div>
 
-              <p class="mt-2">
-                Subtotal:
-                {{ item.unitPrice * item.quantity | currency : "USD" }}
-              </p>
-            </td>
-          </tr>
+                <p class="mt-2">
+                  Subtotal:
+                  {{ item.unitPrice * item.quantity | currency: "USD" }}
+                </p>
+              </td>
+            </tr>
+          </tbody>
 
           <tr>
-            <td colspan="2"></td>
+            <td colspan="3"></td>
             <td style="font-weight: bold">
               <p>Total Quantity: {{ totalQuantity }}</p>
               <p>Shipping: FREE</p>
               <p>Total Price: {{ totalPrice.toFixed(2) }}</p>
               <div>
-                <a routerLink="/checkout" class="btn btn-primary btn-sm">
-                  Checkout
-                </a>
+                <a routerLink="/checkout" class="btn btn-primary"> Checkout </a>
               </div>
             </td>
           </tr>
@@ -81,13 +60,7 @@
       </div>
 
       <!-- if cart is empty then display a message -->
-      <div
-        *ngIf="cartItems.length == 0"
-        class="alert alert-warning col-md-12"
-        role="alert"
-      >
-        Your shopping cart is empty.
-      </div>
+      <div *ngIf="cartItems.length == 0" class="alert alert-warning col-md-12" role="alert">Your shopping cart is empty.</div>
     </div>
   </div>
-</div>
+</section>
