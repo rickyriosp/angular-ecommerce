@@ -3,6 +3,6 @@
 // The list of file replacements can be found in `angular.json`.
 export const environment = {
   production: true,
-  shopApiUrl: 'https://ecommerce.riosr.com:8443/api',
+  shopApiUrl: 'https://ecommerce.riosr.com/api',
   stripePublishableKey: 'pk_test_51OiiG6KMw4UXD7ARN7DmRN7LcpVx35P3nEOvREA4teBFHyhfL7PXRZjqFLt06vwdIvswidezfkJJE2LSz4rPMyHE00XD2VIarr',
 };
